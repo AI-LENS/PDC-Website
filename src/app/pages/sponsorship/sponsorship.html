@@ -1,0 +1,33 @@
+<app-page-hero heading="Sponsorship categories" subtitle="Partner with the collective and support the community." />
+
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+  <div class="overflow-x-auto rounded-card border border-hairline">
+    <table class="w-full min-w-[44rem] border-collapse text-left text-sm">
+      <thead class="bg-brand-700 text-white">
+        <tr>
+          @for (col of columns; track col) {
+            <th scope="col" class="px-5 py-4 font-semibold">{{ col }}</th>
+          }
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-hairline bg-surface">
+        @for (tier of tiers; track tier.name) {
+          <tr class="hover:bg-surface-tint">
+            <td class="px-5 py-4 font-semibold text-brand-700">{{ tier.name }}</td>
+            <td class="px-5 py-4">{{ tier.amount }}</td>
+            <td class="px-5 py-4 text-ink-soft">{{ tier.benefits }}</td>
+            <td class="px-5 py-4 text-ink-soft">{{ tier.slots }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-10 rounded-band border border-hairline bg-surface-tint p-8">
+    <h3>Interested in sponsoring?</h3>
+    <p class="mt-2 text-sm">Placeholder line describing how organisations can get in touch.</p>
+    <a routerLink="/contact"
+       class="mt-5 inline-block rounded-pill bg-brand-700 px-6 py-3 text-sm font-semibold text-white
+              transition-colors hover:bg-brand-800">Contact us</a>
+  </div>
+</section>

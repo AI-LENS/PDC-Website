@@ -1,3 +1,42 @@
 import { Routes } from '@angular/router';
+import { Home } from './pages/home/home';
+import { About } from './pages/about/about';
+import { Team } from './pages/team/team';
+import { Gallery } from './pages/gallery/gallery';
+import { Events } from './pages/events/events';
+import { PastEvents } from './pages/past-events/past-events';
+import { EventCalendar } from './pages/event-calendar/event-calendar';
+import { EventDetail } from './pages/event-detail/event-detail';
+import { Presentations } from './pages/presentations/presentations';
+import { Sponsorship } from './pages/sponsorship/sponsorship';
+import { Resources } from './pages/resources/resources';
+import { Faq } from './pages/faq/faq';
+import { Volunteers } from './pages/volunteers/volunteers';
+import { Ideas } from './pages/ideas/ideas';
+import { Signup } from './pages/signup/signup';
+import { Contact } from './pages/contact/contact';
+import { Privacy } from './pages/privacy/privacy';
+import { Terms } from './pages/terms/terms';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: Home },
+  { path: 'about', component: About },
+  { path: 'team', component: Team },
+  { path: 'events', component: Events },
+  { path: 'events/:id', component: EventDetail },
+  { path: 'past-events', component: PastEvents },
+  { path: 'event-calendar', component: EventCalendar },
+  { path: 'presentations', component: Presentations },
+  { path: 'sponsorship', component: Sponsorship },
+  { path: 'gallery', component: Gallery },
+  { path: 'resources', component: Resources },
+  { path: 'faq', component: Faq },
+  { path: 'volunteers', component: Volunteers },
+  { path: 'ideas', component: Ideas },
+  { path: 'signup', component: Signup },
+  { path: 'contact', component: Contact },
+  { path: 'privacy', component: Privacy },
+  { path: 'terms', component: Terms },
+  { path: '**', redirectTo: 'home' },
+];

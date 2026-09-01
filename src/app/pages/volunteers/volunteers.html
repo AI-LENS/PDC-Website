@@ -1,0 +1,24 @@
+<app-page-hero heading="Volunteering" subtitle="Help shape the collective by giving some of your time." />
+
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+  <div class="rounded-band border-l-4 border-teal-500 bg-surface-tint p-8">
+    <h2 class="text-2xl">Application for volunteering positions</h2>
+    <p class="mt-3">
+      Placeholder note about the current volunteering window and when applications open.
+    </p>
+  </div>
+
+  <h2 class="mt-14">Open positions</h2>
+  <div class="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    @for (role of roles; track $index) {
+      <article class="flex h-full flex-col rounded-card border border-hairline bg-surface p-6 shadow-card">
+        <h3>{{ role.title }}</h3>
+        <p class="mt-2 flex-1 text-sm">{{ role.description }}</p>
+        <p class="mt-4 text-xs font-medium uppercase tracking-wider text-ink-soft">{{ role.commitment }}</p>
+        <a routerLink="/contact"
+           class="mt-5 inline-block rounded-pill bg-brand-700 px-5 py-2.5 text-center text-sm font-semibold
+                  text-white transition-colors hover:bg-brand-800">Apply</a>
+      </article>
+    }
+  </div>
+</section>

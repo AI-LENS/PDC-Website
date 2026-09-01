@@ -1,0 +1,54 @@
+<app-page-hero heading="About us" subtitle="Who we are and what the PharmaDS Collective is working towards." />
+
+<section class="mx-auto max-w-7xl space-y-14 px-4 py-16 sm:px-6 lg:px-8">
+
+  <div class="grid gap-10 lg:grid-cols-3">
+    <h2 class="lg:col-span-1">Organization</h2>
+    <div class="space-y-4 lg:col-span-2">
+      <p>
+        The PharmaDS Collective (PDC) is a community of data science professionals
+        working in the pharmaceutical industry, focused on building a strong and
+        inclusive network addressing real-world data challenges in pharma.
+      </p>
+      <p>
+        PDC will be a leading platform in Indian pharma for developing talent and
+        sharing practical approaches to data science. The group will help raise
+        standards and encourage continuous learning, with a strong focus on data
+        science, including AI and machine learning.
+      </p>
+    </div>
+  </div>
+
+  <div class="grid gap-10 border-t border-hairline pt-14 lg:grid-cols-3">
+    <h2 class="lg:col-span-1">Mission</h2>
+    <div class="lg:col-span-2">
+      <ul class="space-y-3">
+        @for (item of mission; track $index) {
+          <li class="flex gap-3">
+            <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500"></span>
+            <span class="text-ink-soft">{{ item }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid gap-10 border-t border-hairline pt-14 lg:grid-cols-3">
+    <h2 class="lg:col-span-1">Vision</h2>
+    <div class="lg:col-span-2">
+      <blockquote class="rounded-band border-l-4 border-teal-500 bg-surface-tint p-8">
+        <p class="text-lg leading-relaxed">
+          Building a collaborative community for Pharmaceutical Data Science
+          &amp; Innovation — led by pharma data science professionals.
+        </p>
+      </blockquote>
+    </div>
+  </div>
+
+  <div class="rounded-band bg-brand-700 p-10 text-center">
+    <h2 class="text-white">Join us as we shape the future of Pharma Data Science</h2>
+    <a routerLink="/signup"
+       class="mt-6 inline-block rounded-pill bg-teal-500 px-7 py-3.5 text-sm font-semibold text-white
+              transition-colors hover:bg-teal-600">Become a member</a>
+  </div>
+</section>

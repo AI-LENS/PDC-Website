@@ -1,0 +1,53 @@
+<!-- Footer: brand column + link columns, then a legal strip -
+     mirrors the reference site's registration / copyright / policy line. -->
+<footer class="mt-24 bg-brand-700 text-brand-100">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
+
+    <div class="lg:col-span-2">
+      <div class="inline-flex rounded-card bg-white px-4 py-3">
+        <img src="pharmads_collective_logo.svg" alt="PharmaDS Collective" class="h-14 w-auto" />
+      </div>
+      <p class="mt-5 max-w-md text-sm leading-relaxed text-brand-100/80">
+        A community of data science professionals working in the pharmaceutical
+        industry, building an inclusive network that addresses real-world data
+        challenges in pharma.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-sm font-semibold uppercase tracking-wider text-white">Explore</h3>
+      <ul class="mt-4 space-y-2.5">
+        @for (item of quickLinks; track item.path) {
+          <li>
+            <a [routerLink]="item.path"
+               class="text-sm text-brand-100/80 transition-colors hover:text-teal-300">{{ item.label }}</a>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-sm font-semibold uppercase tracking-wider text-white">Get involved</h3>
+      <ul class="mt-4 space-y-2.5">
+        <li><a routerLink="/signup" class="text-sm text-brand-100/80 transition-colors hover:text-teal-300">Become a member</a></li>
+        <li><a routerLink="/volunteers" class="text-sm text-brand-100/80 transition-colors hover:text-teal-300">Volunteer with us</a></li>
+        <li><a routerLink="/ideas" class="text-sm text-brand-100/80 transition-colors hover:text-teal-300">Share an idea</a></li>
+        <li><a routerLink="/events" class="text-sm text-brand-100/80 transition-colors hover:text-teal-300">Upcoming sessions</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Legal strip -->
+  <div class="border-t border-white/10">
+    <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-5 text-xs text-brand-100/70
+                sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+      <!-- colours are set on the elements themselves: the base layer gives <p>
+           and <a> their own colour, which would otherwise beat inheritance here -->
+      <p class="text-brand-100/70">&copy; {{ year }} PharmaDS Collective. All rights reserved.</p>
+      <div class="flex gap-6">
+        <a routerLink="/privacy" class="text-brand-100/70 transition-colors hover:text-teal-300">Privacy Policy</a>
+        <a routerLink="/terms" class="text-brand-100/70 transition-colors hover:text-teal-300">Terms and Conditions</a>
+      </div>
+    </div>
+  </div>
+</footer>

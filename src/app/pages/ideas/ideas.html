@@ -1,0 +1,37 @@
+<app-page-hero heading="Ideas and suggestions" subtitle="Tell us what the collective should work on next." />
+
+<section class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+  <form class="space-y-5 rounded-band border border-hairline bg-surface-tint p-8"
+        (submit)="$event.preventDefault()">
+    <h2 class="text-2xl">Submit a new idea</h2>
+
+    @for (field of fields; track field.name) {
+      <label class="block">
+        <span class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-ink-soft">{{ field.label }}</span>
+        @switch (field.type) {
+          @case ('textarea') {
+            <textarea [name]="field.name" rows="4"
+                      class="w-full rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm
+                             focus:border-teal-500 focus:outline-none"></textarea>
+          }
+          @case ('select') {
+            <select [name]="field.name"
+                    class="w-full rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm
+                           focus:border-teal-500 focus:outline-none">
+              <option value="">Select a category</option>
+            </select>
+          }
+          @default {
+            <input [type]="field.type" [name]="field.name"
+                   class="w-full rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm
+                          focus:border-teal-500 focus:outline-none" />
+          }
+        }
+      </label>
+    }
+
+    <button type="submit"
+            class="rounded-pill bg-accent-600 px-7 py-3 text-sm font-semibold text-white
+                   transition-colors hover:bg-accent-700">Submit</button>
+  </form>
+</section>

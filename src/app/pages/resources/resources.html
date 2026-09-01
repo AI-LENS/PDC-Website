@@ -1,0 +1,21 @@
+<app-page-hero heading="Resources" subtitle="Useful references for pharma data science practitioners." />
+
+<section class="mx-auto max-w-7xl space-y-14 px-4 py-16 sm:px-6 lg:px-8">
+  @for (group of groups; track group.title) {
+    <div>
+      <h2>{{ group.title }}</h2>
+      <p class="mt-2 text-sm">{{ group.blurb }}</p>
+
+      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        @for (item of group.items; track $index) {
+          <a href="#"
+             class="group rounded-card border border-hairline bg-surface p-6 shadow-card transition-colors hover:border-teal-500">
+            <h3 class="text-base group-hover:text-link-600">{{ item.title }}</h3>
+            <p class="mt-2 text-sm">{{ item.description }}</p>
+            <span class="mt-4 inline-block text-xs font-semibold uppercase tracking-wider text-link-600">{{ item.kind }}</span>
+          </a>
+        }
+      </div>
+    </div>
+  }
+</section>

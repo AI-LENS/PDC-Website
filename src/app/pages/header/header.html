@@ -1,0 +1,120 @@
+<!-- Sticky masthead: logo left, primary nav with submenus, sign-in + CTA right -
+     the same arrangement the reference site uses. -->
+<header class="sticky top-0 z-50 border-b border-hairline bg-surface/95 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+
+        <a routerLink="/home" class="shrink-0" aria-label="PharmaDS Collective — home">
+            <img src="pharmads_collective_logo.svg" alt="PharmaDS Collective" class="h-12 w-auto sm:h-14" />
+        </a>
+
+        <!-- Desktop nav -->
+        <nav class="hidden items-center gap-7 xl:flex" aria-label="Primary">
+            @for (item of navItems; track item.label) {
+            @if (item.children) {
+            <!-- Desktop opens on hover or keyboard focus. No click toggle: the
+               pointer entering the button already opened it, so a click would
+               close it again. Mobile below uses click. -->
+            <div class="relative" (mouseenter)="openDropdown(item.label)" (mouseleave)="closeDropdown()"
+                (focusin)="openDropdown(item.label)" (focusout)="closeDropdown()">
+                <button type="button" [attr.aria-expanded]="openSubmenu() === item.label" class="flex items-center gap-1 text-sm font-medium tracking-wide text-ink-soft
+                           transition-colors hover:text-brand-700">
+                    {{ item.label }}
+                    <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+                    </svg>
+                </button>
+
+                @if (openSubmenu() === item.label) {
+                <div class="absolute left-0 top-full z-50 w-60 pt-3">
+                    <ul class="overflow-hidden rounded-card border-hairline bg-surface shadow-card">
+                        @for (child of item.children; track child.path) {
+                        <li>
+                            <a [routerLink]="child.path" (click)="closeDropdown()"
+                                routerLinkActive="text-white bg-brand-500"
+                                class="block px-5 py-2.5 text-sm text-ink-soft transition-colors hover:bg-brand-400 hover:text-white">{{
+                                child.label }}</a>
+                        </li>
+                        }
+                    </ul>
+                </div>
+                }
+            </div>
+            } @else {
+            <a [routerLink]="item.path" routerLinkActive="text-brand-700 after:scale-x-100" class="relative text-sm font-medium tracking-wide text-ink-soft transition-colors hover:text-brand-700
+                    after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-full after:origin-left
+                    after:scale-x-0 after:bg-teal-500 after:transition-transform after:duration-200
+                    hover:after:scale-x-100">{{ item.label }}</a>
+            }
+            }
+        </nav>
+
+        <div class="flex items-center gap-2 sm:gap-3">
+            <!-- <a routerLink="/signup"
+         class="hidden text-sm font-medium text-brand-400 transition-colors hover:text-brand-700 sm:inline-block"
+      >Sign in</a> -->
+
+            <a routerLink="/signup" class="hidden rounded-pill bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white
+                shadow-card transition-colors hover:bg-brand-700 sm:inline-block">Join PDC</a>
+
+            <!-- Mobile menu toggle -->
+            <button type="button" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()" aria-controls="mobile-nav"
+                aria-label="Toggle navigation menu" class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-brand-700
+                     transition-colors hover:bg-brand-50 xl:hidden">
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    @if (menuOpen()) {
+                    <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18" />
+                    } @else {
+                    <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" />
+                    }
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile nav -->
+    @if (menuOpen()) {
+    <nav id="mobile-nav" class="max-h-[75vh] overflow-y-auto border-t border-hairline bg-surface xl:hidden"
+        aria-label="Primary">
+        <ul class="mx-auto max-w-7xl px-4 py-2 sm:px-6">
+            @for (item of navItems; track item.label) {
+            <li class="border-b border-hairline last:border-0">
+                @if (item.children) {
+                <button type="button" (click)="toggleSubmenu(item.label)"
+                    [attr.aria-expanded]="openSubmenu() === item.label"
+                    class="flex w-full items-center justify-between py-3 text-sm font-medium text-ink-soft">
+                    {{ item.label }}
+                    <svg class="h-4 w-4 transition-transform duration-200"
+                        [class.rotate-180]="openSubmenu() === item.label" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+                    </svg>
+                </button>
+                @if (openSubmenu() === item.label) {
+                <ul class="pb-2 pl-4">
+                    @for (child of item.children; track child.path) {
+                    <li>
+                        <a [routerLink]="child.path" (click)="closeMenu()" routerLinkActive="text-brand-700"
+                            class="block py-2.5 text-sm text-ink-soft hover:text-brand-700">{{ child.label }}</a>
+                    </li>
+                    }
+                </ul>
+                }
+                } @else {
+                <a [routerLink]="item.path" routerLinkActive="text-brand-700" (click)="closeMenu()"
+                    class="block py-3 text-sm font-medium text-ink-soft hover:text-brand-700">{{ item.label }}</a>
+                }
+            </li>
+            }
+            <li class="flex gap-3 py-4">
+                <a routerLink="/signup" (click)="closeMenu()"
+                    class="rounded-pill bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white">Join PDC</a>
+                <a routerLink="/signup" (click)="closeMenu()"
+                    class="rounded-pill border border-hairline px-5 py-2.5 text-sm font-semibold text-ink-soft">Sign
+                    in</a>
+            </li>
+        </ul>
+    </nav>
+    }
+</header>

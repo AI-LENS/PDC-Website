@@ -1,0 +1,48 @@
+<app-page-hero heading="Meet our team" subtitle="The people building the PharmaDS Collective." />
+
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+  @for (group of groups; track group.title; let gi = $index) {
+    <div class="mb-16 last:mb-0">
+      <div class="flex items-center gap-4">
+        <h2>{{ group.title }}</h2>
+        <span class="h-px flex-1 bg-hairline"></span>
+        <span class="shrink-0 text-xs font-semibold uppercase tracking-wider text-ink-soft">
+          {{ group.people.length }}
+        </span>
+      </div>
+
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        @for (person of group.people; track $index; let pi = $index) {
+          <article
+            class="group flex flex-col overflow-hidden rounded-card border border-hairline bg-surface
+                   shadow-card transition-all duration-200 hover:-translate-y-1 hover:border-teal-300">
+
+            <!-- portrait tile matches the exported 240x209 crop, so nothing is re-cropped -->
+            <div class="relative aspect-[240/209] overflow-hidden bg-surface-tint">
+              @if (person.photo) {
+                <!-- the first portrait is the LCP element, so it loads eagerly -->
+                <img [src]="person.photo" [alt]="person.name"
+                     width="240" height="209" decoding="async"
+                     [loading]="gi === 0 && pi === 0 ? 'eager' : 'lazy'"
+                     [attr.fetchpriority]="gi === 0 && pi === 0 ? 'high' : null"
+                     class="h-full w-full object-cover object-top" />
+              } @else {
+                <div class="flex h-full w-full items-center justify-center text-xs font-medium text-ink-soft">
+                  Photo placeholder
+                </div>
+              }
+            </div>
+
+            <div class="flex flex-1 flex-col border-t-2 border-teal-500 px-5 py-4">
+              <h3 class="text-base leading-snug">{{ person.name }}</h3>
+              <p class="mt-1 text-xs font-semibold uppercase tracking-wider text-teal-700">{{ person.role }}</p>
+              @if (person.bio) {
+                <p class="mt-3 text-sm">{{ person.bio }}</p>
+              }
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  }
+</section>

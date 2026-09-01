@@ -1,3 +1,119 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles — design tokens taken from PharmaDS_Collective_poster.png.
+   Poppins is the only typeface used anywhere in the app. */
 
 @import 'tailwindcss';
+
+@theme {
+  /* ---- Type -------------------------------------------------------------
+     --font-sans is overridden so every default Tailwind text class resolves
+     to Poppins; no other family is registered. */
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+
+  /* ---- Brand navy -------------------------------------------------------
+     #00246C is the poster's dominant colour: the title, every section band
+     and the footer strip. */
+  --color-brand-50:  #eef2fa;
+  --color-brand-100: #d6e0f2;
+  --color-brand-200: #adc0e4;
+  --color-brand-300: #7893cf;
+  --color-brand-400: #4364ad;
+  --color-brand-500: #1d3d8a;
+  --color-brand-600: #002d7d;
+  --color-brand-700: #00246c;
+  --color-brand-800: #001a52;
+  --color-brand-900: #001238;
+
+  /* ---- Accent green — the "DS" in the wordmark, bullets, highlights ---- */
+  --color-accent-50:  #eef8ea;
+  --color-accent-100: #d6efcd;
+  --color-accent-200: #aede9d;
+  --color-accent-300: #7cc766;
+  --color-accent-400: #4bb02f;
+  --color-accent-500: #27970d;
+  --color-accent-600: #1f8c08;
+  --color-accent-700: #147502;
+  --color-accent-800: #0f5c02;
+  --color-accent-900: #0a4201;
+
+  /* ---- Teal — icon circles, the session date, sub-headings ------------- */
+  --color-teal-50:  #e6f8f7;
+  --color-teal-100: #c2efec;
+  --color-teal-200: #8ae0da;
+  --color-teal-300: #4bcfc6;
+  --color-teal-400: #21c1b6;
+  --color-teal-500: #11b6ac;
+  --color-teal-600: #01a5ab;
+  --color-teal-700: #058c8f;
+  --color-teal-800: #076e70;
+  --color-teal-900: #085456;
+
+  /* ---- Link blue — "COLLECTIVE" in the wordmark ------------------------ */
+  --color-link-400: #3f6ede;
+  --color-link-500: #1e4cbd;
+  --color-link-600: #1340c5;
+  --color-link-700: #0e34a0;
+
+  /* ---- Sky — the light-blue artwork wash on the poster ----------------- */
+  --color-sky-brand-300: #76c5f7;
+  --color-sky-brand-500: #048ef8;
+
+  /* ---- Neutrals -------------------------------------------------------- */
+  --color-surface:     #ffffff;
+  --color-surface-alt: #fcfcfc;
+  --color-surface-tint:#f4f7fc;
+  --color-ink:         #1b2330;
+  --color-ink-soft:    #4a5567;
+  --color-hairline:    #e2e8f2;
+
+  /* ---- Shape ----------------------------------------------------------- */
+  --radius-card: 0.875rem;
+  --radius-band: 1rem;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 1px 2px rgb(0 36 108 / 0.06), 0 8px 24px rgb(0 36 108 / 0.08);
+  --shadow-band: 0 10px 30px rgb(0 36 108 / 0.18);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Headings carry the brand navy and the poster's tight, bold setting. */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+    color: var(--color-brand-700);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  h1 { font-size: clamp(2.25rem, 5vw, 3.75rem); }
+  h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); }
+  h3 { font-size: clamp(1.25rem, 2.2vw, 1.5rem); }
+
+  p  { color: var(--color-ink-soft); line-height: 1.7; }
+  a  { color: var(--color-link-600); text-decoration: none; }
+  a:hover { color: var(--color-link-700); }
+
+  :focus-visible {
+    outline: 2px solid var(--color-teal-500);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-700);
+    color: #fff;
+  }
+}

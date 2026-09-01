@@ -1,0 +1,26 @@
+<app-page-hero heading="Gallery" subtitle="Moments from our sessions, meetups and hackathons." />
+
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+  @for (album of albums; track album.title) {
+    <div class="mb-14 last:mb-0">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h2>{{ album.title }}</h2>
+          <p class="mt-1 text-sm">{{ album.date }}</p>
+        </div>
+        <span class="shrink-0 text-xs font-semibold uppercase tracking-wider text-ink-soft">
+          {{ album.photos.length }} photos
+        </span>
+      </div>
+
+      <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        @for (photo of album.photos; track $index) {
+          <div class="flex aspect-[4/3] items-center justify-center rounded-card border border-hairline
+                      bg-surface-tint text-xs font-medium text-ink-soft">
+            Image placeholder
+          </div>
+        }
+      </div>
+    </div>
+  }
+</section>

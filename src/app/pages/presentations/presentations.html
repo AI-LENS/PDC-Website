@@ -1,0 +1,30 @@
+<app-page-hero heading="Presentations" subtitle="Slides and materials shared at past sessions." />
+
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+  <label class="block max-w-md">
+    <span class="sr-only">Search presentations</span>
+    <input type="search" placeholder="Search for presentations"
+           class="w-full rounded-pill border border-hairline bg-surface px-5 py-3 text-sm
+                  text-ink placeholder:text-ink-soft/70 focus:border-teal-500 focus:outline-none" />
+  </label>
+
+  <div class="mt-10 space-y-4">
+    @for (item of presentations; track $index) {
+      <article class="flex flex-col gap-4 rounded-card border border-hairline bg-surface p-6 shadow-card
+                      sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h3>{{ item.title }}</h3>
+          <p class="mt-1 text-sm">{{ item.speaker }} &middot; {{ item.event }}</p>
+        </div>
+        <a href="#"
+           class="inline-flex shrink-0 items-center gap-1.5 rounded-pill border border-hairline px-5 py-2.5
+                  text-sm font-semibold text-link-600 transition-colors hover:bg-surface-tint">
+          Download
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
+          </svg>
+        </a>
+      </article>
+    }
+  </div>
+</section>

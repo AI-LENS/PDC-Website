@@ -1,0 +1,9 @@
+/* Hero wash. Kept here rather than as a Tailwind arbitrary value: the
+   two-stop radial gradient contains commas and spaces, which cannot survive
+   inside a class name. */
+.hero-wash {
+  background-image:
+    radial-gradient(60rem 30rem at 15% -10%, var(--color-sky-brand-500), transparent),
+    radial-gradient(45rem 25rem at 95% 110%, var(--color-teal-600), transparent);
+  opacity: 0.35;
+}
