@@ -1,4 +1,0 @@
-# Angular is a client-side SPA: every route must be served index.html so that
-# deep links and refreshes work. 200 (not 301) keeps the URL intact.
-# Honoured by Cloudflare Pages and Netlify.
-/*    /index.html   200
