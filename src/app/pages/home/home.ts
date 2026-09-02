@@ -1,5 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { EVENTS, pastEvents } from '../../data/events';
 
 interface EventCard {
   name: string;
@@ -13,6 +14,8 @@ interface TimelineEntry {
   day: string;
   title: string;
   description: string;
+  /** Set for real events; placeholders have no detail page to link to. */
+  id?: string;
 }
 
 @Component({
@@ -22,66 +25,34 @@ interface TimelineEntry {
   templateUrl: './home.html',
 })
 export class Home {
-  /* ---- PLACEHOLDER DATA -------------------------------------------------
-     Layout scaffolding only. Swap these arrays for real content; the
-     templates read from them, so nothing in the markup needs to change. */
+  /* PLACEHOLDER DATA - no upcoming session is scheduled yet. Replace with
+     real cards when the next session is announced. */
+  protected readonly upcomingEvents: EventCard[] = Array.from({ length: 3 }, () => ({
+    name: 'Event title placeholder',
+    date: 'Date placeholder',
+    venue: 'Venue placeholder',
+    topic: 'Short description of the session topic goes here.',
+  }));
 
-  protected readonly upcomingEvents: EventCard[] = [
-    {
-      name: 'Inaugural Session',
-      date: '25 July 2026',
-      venue: 'Venue to be announced',
-      topic: 'Launch of the PharmaDS Collective and introduction of the founding members.',
-    },
-    {
-      name: 'Event title placeholder',
-      date: 'Date placeholder',
-      venue: 'Venue placeholder',
-      topic: 'Short description of the session topic goes here.',
-    },
-    {
-      name: 'Event title placeholder',
-      date: 'Date placeholder',
-      venue: 'Venue placeholder',
-      topic: 'Short description of the session topic goes here.',
-    },
-    {
-      name: 'Event title placeholder',
-      date: 'Date placeholder',
-      venue: 'Venue placeholder',
-      topic: 'Short description of the session topic goes here.',
-    },
-  ];
-
+  /** Sessions that have run, followed by placeholders for the ones to come. */
   protected readonly timeline: TimelineEntry[] = [
-    {
-      month: 'Jul',
-      day: '25',
-      title: 'Inaugural Session',
-      description: 'Venue and agenda details coming soon.',
-    },
-    {
+    ...pastEvents().map((event) => ({
+      month: event.month,
+      day: event.day,
+      title: event.title,
+      description: event.summary,
+      id: event.id,
+    })),
+    ...Array.from({ length: 3 }, () => ({
       month: 'Mon',
       day: '00',
       title: 'Event title placeholder',
       description: 'One or two lines describing what happened at this session.',
-    },
-    {
-      month: 'Mon',
-      day: '00',
-      title: 'Event title placeholder',
-      description: 'One or two lines describing what happened at this session.',
-    },
-    {
-      month: 'Mon',
-      day: '00',
-      title: 'Event title placeholder',
-      description: 'One or two lines describing what happened at this session.',
-    },
+    })),
   ];
 
-  /** Placeholder tiles until real gallery images are added. */
-  protected readonly galleryTiles = Array.from({ length: 8 }, (_, i) => i);
+  /** Newest photos across all events, for the gallery strip. */
+  protected readonly galleryTiles = EVENTS.flatMap((event) => event.photos).slice(0, 8);
 
   /** Placeholder sponsor slots. */
   protected readonly sponsors = Array.from({ length: 4 }, (_, i) => i);

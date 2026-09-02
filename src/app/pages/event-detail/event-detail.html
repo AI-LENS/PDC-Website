@@ -1,102 +1,124 @@
-<app-page-hero heading="Event title placeholder" subtitle="Event registration and details." />
+@if (event; as event) {
+  <app-page-hero [heading]="event.title" [subtitle]="event.dateLabel + ' &middot; ' + event.venue" />
 
-<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-  <div class="grid gap-12 lg:grid-cols-3">
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <!-- A past event has no registration sidebar, so it runs full width. -->
+    <div [class]="isPast ? 'grid gap-12' : 'grid gap-12 lg:grid-cols-3'">
 
-    <div class="space-y-12 lg:col-span-2">
-      <div>
-        <h2>About event</h2>
-        <p class="mt-4">
-          Placeholder description of the event: what it covers, who it is for and
-          what attendees will take away.
-        </p>
+      <div [class]="isPast ? 'space-y-12' : 'space-y-12 lg:col-span-2'">
+        <div>
+          <h2>About event</h2>
+          <p class="mt-4">{{ event.description }}</p>
 
-        <div class="mt-6 grid gap-4 sm:grid-cols-2">
-          <div class="rounded-card border border-hairline bg-surface-tint p-5">
-            <h3 class="text-base">Event date</h3>
-            <p class="mt-1 text-sm">Date and time placeholder</p>
-          </div>
-          <div class="rounded-card border border-hairline bg-surface-tint p-5">
-            <h3 class="text-base">Event location</h3>
-            <p class="mt-1 text-sm">Venue placeholder</p>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h2>Facilitators</h2>
-        <div class="mt-6 grid gap-6 sm:grid-cols-3">
-          @for (person of facilitators; track $index) {
-            <article class="rounded-card border border-hairline bg-surface p-5 text-center shadow-card">
-              <div class="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-surface-tint text-[0.65rem] text-ink-soft">
-                Photo
-              </div>
-              <h3 class="mt-4 text-base">{{ person.name }}</h3>
-              <p class="mt-1 text-xs text-ink-soft">{{ person.role }}</p>
-            </article>
-          }
-        </div>
-      </div>
-
-      <div>
-        <h2>Agenda</h2>
-        <ul class="mt-6 divide-y divide-hairline border-t border-hairline">
-          @for (slot of agenda; track $index) {
-            <li class="flex flex-col gap-2 py-4 sm:flex-row sm:gap-8">
-              <span class="w-32 shrink-0 text-sm font-semibold text-brand-700">{{ slot.time }}</span>
-              <div>
-                <h3 class="text-base">{{ slot.title }}</h3>
-                <p class="mt-0.5 text-sm">{{ slot.speaker }}</p>
-              </div>
-            </li>
-          }
-        </ul>
-      </div>
-
-      <div>
-        <h2>Sponsors</h2>
-        <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
-          @for (sponsor of sponsors; track $index) {
-            <div class="flex h-24 items-center justify-center rounded-card border border-hairline bg-surface text-xs text-ink-soft">
-              Logo
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <div class="rounded-card border border-hairline bg-surface-tint p-5">
+              <h3 class="text-base">Event date</h3>
+              <p class="mt-1 text-sm">
+                <time [attr.datetime]="event.date">{{ event.dateLabel }}</time>
+              </p>
             </div>
-          }
+            <div class="rounded-card border border-hairline bg-surface-tint p-5">
+              <h3 class="text-base">Event location</h3>
+              <p class="mt-1 text-sm">{{ event.venue }}</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Registration -->
-    <aside class="lg:col-span-1">
-      <form class="sticky top-28 space-y-4 rounded-band border border-hairline bg-surface-tint p-7"
-            (submit)="$event.preventDefault()">
-        <h2 class="text-2xl">Registration</h2>
-
-        @for (field of registrationFields; track field.name) {
-          <label class="block">
-            <span class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-ink-soft">{{ field.label }}</span>
-            @if (field.type === 'select') {
-              <select [name]="field.name"
-                      class="w-full rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm
-                             focus:border-teal-500 focus:outline-none">
-                <option value="">Select an option</option>
-              </select>
-            } @else {
-              <input [type]="field.type" [name]="field.name"
-                     class="w-full rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm
-                            focus:border-teal-500 focus:outline-none" />
-            }
-          </label>
+        @if (event.speakers.length) {
+          <div>
+            <h2>Speakers and panellists</h2>
+            <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+              @for (person of event.speakers; track person.name) {
+                <li class="rounded-card border border-hairline bg-surface p-5 shadow-card">
+                  <h3 class="text-base">{{ person.name }}</h3>
+                  <p class="mt-1 text-xs uppercase tracking-wider text-ink-soft">{{ person.role }}</p>
+                </li>
+              }
+            </ul>
+          </div>
         }
 
-        <label class="flex items-start gap-2 pt-1">
-          <input type="checkbox" class="mt-1" />
-          <span class="text-xs text-ink-soft">I agree to the terms and conditions.</span>
-        </label>
+        @if (event.founders.length) {
+          <div>
+            <h2>Founding members</h2>
+            <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              @for (person of event.founders; track person.name) {
+                <li class="rounded-card border border-hairline bg-surface-tint p-5">
+                  <h3 class="text-base">{{ person.name }}</h3>
+                  <p class="mt-1 text-xs uppercase tracking-wider text-ink-soft">{{ person.role }}</p>
+                </li>
+              }
+            </ul>
+          </div>
+        }
 
-        <button type="submit"
-                class="w-full rounded-pill bg-brand-700 px-6 py-3 text-sm font-semibold text-white
-                       transition-colors hover:bg-brand-800">Register</button>
-      </form>
-    </aside>
-  </div>
-</section>
+        @if (event.photos.length) {
+          <div>
+            <h2>Photos</h2>
+            <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              @for (photo of event.photos; track photo.src) {
+                <figure class="overflow-hidden rounded-card border border-hairline bg-surface shadow-card">
+                  <img [src]="photo.src" [alt]="photo.alt"
+                       [width]="photo.width" [height]="photo.height"
+                       loading="lazy" decoding="async"
+                       class="aspect-[4/3] w-full object-cover" />
+                  <figcaption class="px-4 py-3 text-xs text-ink-soft">{{ photo.caption }}</figcaption>
+                </figure>
+              }
+            </div>
+            <a routerLink="/gallery"
+               class="mt-6 inline-block text-sm font-semibold text-link-600 hover:text-link-700">
+              View the full gallery
+            </a>
+          </div>
+        }
+      </div>
+
+      @if (!isPast) {
+        <!-- Registration, shown only while the session is still ahead of us. -->
+        <aside class="lg:col-span-1">
+          <form class="sticky top-28 space-y-4 rounded-band border border-hairline bg-surface-tint p-7"
+                (submit)="$event.preventDefault()">
+            <h2 class="text-2xl">Registration</h2>
+
+            @for (field of registrationFields; track field.name) {
+              <label class="block">
+                <span class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-ink-soft">{{ field.label }}</span>
+                @if (field.type === 'select') {
+                  <select [name]="field.name"
+                          class="w-full rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm
+                                 focus:border-teal-500 focus:outline-none">
+                    <option value="">Select an option</option>
+                  </select>
+                } @else {
+                  <input [type]="field.type" [name]="field.name"
+                         class="w-full rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm
+                                focus:border-teal-500 focus:outline-none" />
+                }
+              </label>
+            }
+
+            <label class="flex items-start gap-2 pt-1">
+              <input type="checkbox" class="mt-1" />
+              <span class="text-xs text-ink-soft">I agree to the terms and conditions.</span>
+            </label>
+
+            <button type="submit"
+                    class="w-full rounded-pill bg-brand-700 px-6 py-3 text-sm font-semibold text-white
+                           transition-colors hover:bg-brand-800">Register</button>
+          </form>
+        </aside>
+      }
+    </div>
+  </section>
+} @else {
+  <app-page-hero heading="Event not found" subtitle="This event is no longer listed." />
+
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <p>We could not find that event. It may have been removed or the link may be out of date.</p>
+    <div class="mt-6 flex flex-wrap gap-4">
+      <a routerLink="/events" class="text-sm font-semibold text-link-600 hover:text-link-700">Upcoming events</a>
+      <a routerLink="/past-events" class="text-sm font-semibold text-link-600 hover:text-link-700">Past events</a>
+    </div>
+  </section>
+}

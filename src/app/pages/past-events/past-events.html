@@ -5,16 +5,17 @@
   <label class="block max-w-md">
     <span class="sr-only">Search past events</span>
     <input type="search" placeholder="Please enter search keyword"
+           [value]="query()" (input)="onSearch($any($event.target).value)"
            class="w-full rounded-pill border border-hairline bg-surface px-5 py-3 text-sm
                   text-ink placeholder:text-ink-soft/70 focus:border-teal-500 focus:outline-none" />
   </label>
 
-  @for (group of archive; track group.year) {
+  @for (group of results(); track group.year) {
     <div class="mt-12">
       <h2>Past events {{ group.year }}</h2>
 
       <ul class="mt-6 divide-y divide-hairline border-t border-hairline">
-        @for (event of group.events; track $index) {
+        @for (event of group.events; track event.id) {
           <li class="grid gap-5 py-7 sm:grid-cols-[5rem_1fr_auto] sm:items-start">
             <div class="flex h-16 w-16 flex-col items-center justify-center rounded-card bg-surface-tint">
               <span class="text-lg font-bold leading-none text-brand-700">{{ event.day }}</span>
@@ -23,16 +24,25 @@
 
             <div>
               <h3>{{ event.title }}</h3>
-              <p class="mt-1 text-sm">{{ event.description }}</p>
+              <p class="mt-1 text-sm">{{ event.summary }}</p>
+              <p class="mt-2 text-xs font-medium uppercase tracking-wider text-ink-soft">{{ event.venue }}</p>
             </div>
 
             <div class="flex shrink-0 flex-col gap-2 text-sm font-semibold">
-              <a routerLink="/events/1" class="text-link-600 hover:text-link-700">Event details</a>
-              <a routerLink="/presentations" class="text-link-600 hover:text-link-700">Presentations</a>
+              <a [routerLink]="['/events', event.id]" class="text-link-600 hover:text-link-700">Event details</a>
+              <a routerLink="/gallery" class="text-link-600 hover:text-link-700">Photos</a>
             </div>
           </li>
         }
       </ul>
     </div>
+  } @empty {
+    <p class="mt-12 text-sm text-ink-soft">
+      @if (query()) {
+        No past events match &ldquo;{{ query() }}&rdquo;.
+      } @else {
+        No past events yet.
+      }
+    </p>
   }
 </section>

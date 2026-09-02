@@ -1,24 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PageHero } from '../../shared/page-hero/page-hero';
+import { findEvent, hasHappened } from '../../data/events';
 
 @Component({
-  imports: [PageHero],
+  imports: [RouterLink, PageHero],
   selector: 'app-event-detail',
   templateUrl: './event-detail.html',
 })
 export class EventDetail {
-  protected readonly facilitators = Array.from({ length: 3 }, () => ({
-    name: 'Name placeholder',
-    role: 'Role placeholder',
-  }));
+  private readonly route = inject(ActivatedRoute);
 
-  protected readonly agenda = Array.from({ length: 5 }, () => ({
-    time: '00:00 - 00:00',
-    title: 'Session title placeholder',
-    speaker: 'Speaker name placeholder',
-  }));
+  /** Undefined when the id in the URL matches no published event. */
+  protected readonly event = findEvent(this.route.snapshot.paramMap.get('id'));
 
-  protected readonly sponsors = Array.from({ length: 4 }, (_, i) => i);
+  /** A session that has already run shows a recap instead of a booking form. */
+  protected readonly isPast = this.event ? hasHappened(this.event) : false;
 
   protected readonly registrationFields = [
     { name: 'name', label: 'Full name', type: 'text' },

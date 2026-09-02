@@ -6,7 +6,7 @@
       <div class="flex items-end justify-between gap-4">
         <div>
           <h2>{{ album.title }}</h2>
-          <p class="mt-1 text-sm">{{ album.date }}</p>
+          <p class="mt-1 text-sm">{{ album.date }} &middot; {{ album.venue }}</p>
         </div>
         <span class="shrink-0 text-xs font-semibold uppercase tracking-wider text-ink-soft">
           {{ album.photos.length }} photos
@@ -14,13 +14,18 @@
       </div>
 
       <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        @for (photo of album.photos; track $index) {
-          <div class="flex aspect-[4/3] items-center justify-center rounded-card border border-hairline
-                      bg-surface-tint text-xs font-medium text-ink-soft">
-            Image placeholder
-          </div>
+        @for (photo of album.photos; track photo.src) {
+          <figure class="overflow-hidden rounded-card border border-hairline bg-surface shadow-card">
+            <img [src]="photo.src" [alt]="photo.alt"
+                 [width]="photo.width" [height]="photo.height"
+                 loading="lazy" decoding="async"
+                 class="aspect-[4/3] w-full object-cover" />
+            <figcaption class="px-3 py-2 text-xs text-ink-soft">{{ photo.caption }}</figcaption>
+          </figure>
         }
       </div>
     </div>
+  } @empty {
+    <p class="text-sm text-ink-soft">Photos from our sessions will appear here.</p>
   }
 </section>

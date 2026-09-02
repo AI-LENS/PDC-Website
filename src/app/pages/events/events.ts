@@ -10,20 +10,14 @@ import { PageHero } from '../../shared/page-hero/page-hero';
 export class Events {
   protected readonly year = new Date().getFullYear();
 
-  protected readonly events = [
-    {
-      day: '25',
-      month: 'Jul',
-      title: 'Inaugural Session',
-      description: 'Launch of the PharmaDS Collective and introduction of the founding members.',
-      venue: 'Venue and agenda details coming soon',
-    },
-    ...Array.from({ length: 3 }, () => ({
-      day: '00',
-      month: 'Mon',
-      title: 'Event title placeholder',
-      description: 'Short description of the session topic goes here.',
-      venue: 'Venue placeholder',
-    })),
-  ];
+  /* PLACEHOLDER DATA - no upcoming session is scheduled yet. Replace these
+     rows with real entries when the next session is announced; past sessions
+     live in src/app/data/events.ts and surface on the past-events page. */
+  protected readonly events = Array.from({ length: 3 }, () => ({
+    day: '00',
+    month: 'Mon',
+    title: 'Event title placeholder',
+    description: 'Short description of the session topic goes here.',
+    venue: 'Venue placeholder',
+  }));
 }

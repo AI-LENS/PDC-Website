@@ -127,8 +127,10 @@
           <p class="mt-1 text-sm">{{ entry.description }}</p>
         </div>
 
-        <a routerLink="/events/1"
-           class="shrink-0 text-sm font-semibold text-link-600 hover:text-link-700">See content</a>
+        @if (entry.id) {
+          <a [routerLink]="['/events', entry.id]"
+             class="shrink-0 text-sm font-semibold text-link-600 hover:text-link-700">See content</a>
+        }
       </li>
     }
   </ul>
@@ -146,11 +148,13 @@
     </div>
 
     <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-      @for (tile of galleryTiles; track $index) {
-        <div class="flex aspect-[4/3] items-center justify-center rounded-card border border-hairline
-                    bg-surface-tint text-xs font-medium text-ink-soft">
-          Image placeholder
-        </div>
+      @for (tile of galleryTiles; track tile.src) {
+        <img [src]="tile.src" [alt]="tile.alt"
+             [width]="tile.width" [height]="tile.height"
+             loading="lazy" decoding="async"
+             class="aspect-[4/3] w-full rounded-card border border-hairline object-cover" />
+      } @empty {
+        <p class="text-sm text-ink-soft">Photos from our sessions will appear here.</p>
       }
     </div>
   </div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PageHero } from '../../shared/page-hero/page-hero';
+import { EVENTS } from '../../data/events';
 
 @Component({
   imports: [PageHero],
@@ -7,9 +8,11 @@ import { PageHero } from '../../shared/page-hero/page-hero';
   templateUrl: './gallery.html',
 })
 export class Gallery {
-  protected readonly albums = Array.from({ length: 3 }, () => ({
-    title: 'Album title placeholder',
-    date: 'Date placeholder',
-    photos: Array.from({ length: 8 }, (_, i) => i),
+  /** One album per event that has photos. */
+  protected readonly albums = EVENTS.filter((event) => event.photos.length > 0).map((event) => ({
+    title: event.title,
+    date: event.dateLabel,
+    venue: event.venue,
+    photos: event.photos,
   }));
 }
