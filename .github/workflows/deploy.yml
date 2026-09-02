@@ -1,0 +1,59 @@
+# Builds the site and publishes it to GitHub Pages on every push to main.
+# No manual step: push -> build -> live.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # lets you re-run a deploy by hand if ever needed
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# If you push twice quickly, let the newer run win rather than queueing.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc     # Angular 22 needs Node >= 22.22 / >= 24.15
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm test -- --watch=false
+
+      # Project site lives at /<repo>/, so the app must be built for that prefix.
+      - name: Build
+        run: npm run build -- --base-href "/${GITHUB_REPOSITORY#*/}/"
+
+      # GitHub Pages has no rewrite rules. Serving a copy of index.html as
+      # 404.html makes deep links (/team, /faq) boot the app and route correctly.
+      - name: Add SPA fallback
+        run: |
+          cp dist/PDC-web/browser/index.html dist/PDC-web/browser/404.html
+          touch dist/PDC-web/browser/.nojekyll
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/PDC-web/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

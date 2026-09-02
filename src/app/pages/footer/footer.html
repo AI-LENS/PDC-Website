@@ -19,7 +19,7 @@
       <ul class="mt-4 space-y-2.5">
         @for (item of quickLinks; track item.path) {
           <li>
-            <a [routerLink]="item.path"
+            <a href="{{ item.path }}"
                class="text-sm text-brand-100/80 transition-colors hover:text-teal-300">{{ item.label }}</a>
           </li>
         }
@@ -29,10 +29,10 @@
     <div>
       <h3 class="text-sm font-semibold uppercase tracking-wider text-white">Get involved</h3>
       <ul class="mt-4 space-y-2.5">
-        <li><a routerLink="/signup" class="text-sm text-brand-100/80 transition-colors hover:text-teal-300">Become a member</a></li>
-        <li><a routerLink="/volunteers" class="text-sm text-brand-100/80 transition-colors hover:text-teal-300">Volunteer with us</a></li>
-        <li><a routerLink="/ideas" class="text-sm text-brand-100/80 transition-colors hover:text-teal-300">Share an idea</a></li>
-        <li><a routerLink="/events" class="text-sm text-brand-100/80 transition-colors hover:text-teal-300">Upcoming sessions</a></li>
+        <li><a href="/signup" class="text-sm text-brand-100/80 transition-colors hover:text-teal-300">Become a member</a></li>
+        <li><a href="/volunteers" class="text-sm text-brand-100/80 transition-colors hover:text-teal-300">Volunteer with us</a></li>
+        <li><a href="/ideas" class="text-sm text-brand-100/80 transition-colors hover:text-teal-300">Share an idea</a></li>
+        <li><a href="/events" class="text-sm text-brand-100/80 transition-colors hover:text-teal-300">Upcoming sessions</a></li>
       </ul>
     </div>
   </div>
@@ -45,8 +45,8 @@
            and <a> their own colour, which would otherwise beat inheritance here -->
       <p class="text-brand-100/70">&copy; {{ year }} PharmaDS Collective. All rights reserved.</p>
       <div class="flex gap-6">
-        <a routerLink="/privacy" class="text-brand-100/70 transition-colors hover:text-teal-300">Privacy Policy</a>
-        <a routerLink="/terms" class="text-brand-100/70 transition-colors hover:text-teal-300">Terms and Conditions</a>
+        <a href="/privacy" class="text-brand-100/70 transition-colors hover:text-teal-300">Privacy Policy</a>
+        <a href="/terms" class="text-brand-100/70 transition-colors hover:text-teal-300">Terms and Conditions</a>
       </div>
     </div>
   </div>

@@ -24,46 +24,46 @@ export class Team {
         {
           name: 'Ashwini Mathur',
           role: 'Founding member',
-          photo: 'team/ashwini-mathur.png',
+          photo: 'img/team/ashwini-mathur.png',
           bio: 'Short bio placeholder.',
         },
         {
           name: 'Ajay Daparthi',
           role: 'Founding member',
-          photo: 'team/ajay-daparthi.png',
+          photo: 'img/team/ajay-daparthi.png',
           bio: 'Short bio placeholder.',
         },
         {
           name: 'Suhas Kirani',
           role: 'Founding member',
-          photo: 'team/suhas-kirani.png',
+          photo: 'img/team/suhas-kirani.png',
           bio: 'Short bio placeholder.',
         },
         {
           name: 'Abhijit Roy',
           role: 'Founding member',
-          photo: 'team/abhijit-roy.png',
+          photo: 'img/team/abhijit-roy.png',
           bio: 'Short bio placeholder.',
         },
       ],
     },
-    {
-      title: 'Executive committee',
-      people: Array.from({ length: 4 }, () => ({
-        name: 'Name placeholder',
-        role: 'Role placeholder',
-        photo: null,
-        bio: 'Short bio placeholder.',
-      })),
-    },
-    {
-      title: 'Volunteers',
-      people: Array.from({ length: 8 }, () => ({
-        name: 'Name placeholder',
-        role: 'Volunteer',
-        photo: null,
-        bio: '',
-      })),
-    },
+    // {
+    //   title: 'Executive committee',
+    //   people: Array.from({ length: 4 }, () => ({
+    //     name: 'Name placeholder',
+    //     role: 'Role placeholder',
+    //     photo: null,
+    //     bio: 'Short bio placeholder.',
+    //   })),
+    // },
+    // {
+    //   title: 'Volunteers',
+    //   people: Array.from({ length: 8 }, () => ({
+    //     name: 'Name placeholder',
+    //     role: 'Volunteer',
+    //     photo: null,
+    //     bio: '',
+    //   })),
+    // },
   ];
 }
