@@ -32,8 +32,9 @@ jobs:
 
       - run: npm test -- --watch=false
 
-      # Served from the custom domain pharmadsc.org, so the app lives at the root.
-      # (public/CNAME is copied into the artifact and is what binds the domain.)
+      # Served from the custom domain pharmadsc.org, so the app lives at the root
+      # rather than /<repo>/. The domain itself is bound by the repo's Pages
+      # setting (workflow-based deploys ignore the CNAME file in the artifact).
       - name: Build
         run: npm run build -- --base-href "/"
 
