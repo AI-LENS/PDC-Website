@@ -32,9 +32,10 @@ jobs:
 
       - run: npm test -- --watch=false
 
-      # Project site lives at /<repo>/, so the app must be built for that prefix.
+      # Served from the custom domain pharmadsc.org, so the app lives at the root.
+      # (public/CNAME is copied into the artifact and is what binds the domain.)
       - name: Build
-        run: npm run build -- --base-href "/${GITHUB_REPOSITORY#*/}/"
+        run: npm run build -- --base-href "/"
 
       # GitHub Pages has no rewrite rules. Serving a copy of index.html as
       # 404.html makes deep links (/team, /faq) boot the app and route correctly.
